@@ -20,6 +20,9 @@ function addMessage() {
     capsules.push(capsule);
     saveData();
     displayCapsules();
+
+    document.getElementById("message").value = "";
+    document.getElementById("date").value = "";
 }
 
 function displayCapsules() {
@@ -34,7 +37,7 @@ function displayCapsules() {
         div.className = "capsule";
 
         div.innerHTML = `
-            <p>${locked ? "🔒 Locked" : c.message}</p>
+            <p>${locked ? "🔒 Locked" : "🔓 " + c.message}</p>
             <p>Open on: ${c.date}</p>
             <button onclick="editCapsule(${c.id})">Edit</button>
             <button onclick="deleteCapsule(${c.id})">Delete</button>
