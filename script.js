@@ -53,3 +53,17 @@ function deleteCapsule(id) {
 function saveData() {
     localStorage.setItem("capsules", JSON.stringify(capsules));
 }
+function editCapsule(id) {
+    let capsule = capsules.find(c => c.id === id);
+
+    let newMessage = prompt("Edit your message:", capsule.message);
+    let newDate = prompt("Edit date (YYYY-MM-DD):", capsule.date);
+
+    if (newMessage && newDate) {
+        capsule.message = newMessage;
+        capsule.date = newDate;
+
+        saveData();
+        displayCapsules();
+    }
+}
