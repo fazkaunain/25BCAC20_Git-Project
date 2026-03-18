@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Time Capsule</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <h1>⏳ Time Capsule</h1>
+
+    <!-- FORM (Create) -->
+    <div class="input-section">
+        <form action="/add" method="POST">
+            <textarea name="message" placeholder="Write your message..." required></textarea><br><br>
+            <input type="date" name="date" required><br><br>
+            <button type="submit">Save</button>
+        </form>
+    </div>
+
+    <h2>Your Capsules</h2>
+
+    <!-- DISPLAY (Read) -->
+    {% for c in capsules %}
+    <div class="capsule">
+        <p>{{ c.message }}</p>
+        <p>Open on: {{ c.date }}</p>
+
+        <!-- DELETE -->
+        <a href="/delete/{{ c.id }}">
+            <button>Delete</button>
+        </a>
+    </div>
+    {% endfor %}
+
+</body>
+</html>
