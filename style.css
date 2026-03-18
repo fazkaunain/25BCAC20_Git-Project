@@ -1,35 +1,58 @@
 body {
-    font-family: Arial;
-    background: #f5f5f5;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #4A90E2, #6DD5FA);
+    margin: 0;
+    padding: 0;
     text-align: center;
+    color: #333;
 }
 
 h1 {
-    color: #4A90E2;
+    color: white;
+    margin-top: 20px;
+}
+
+.input-section {
+    background: white;
+    padding: 20px;
+    margin: 20px auto;
+    width: 320px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 textarea {
-    width: 300px;
-    height: 100px;
+    width: 90%;
+    height: 80px;
     padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
 }
 
 input {
+    margin-top: 10px;
     padding: 5px;
 }
 
 button {
+    margin-top: 10px;
     background: #4A90E2;
     color: white;
     padding: 10px;
     border: none;
     cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background: #357ABD;
 }
 
 .capsule {
     background: white;
     margin: 10px auto;
-    padding: 10px;
-    width: 300px;
-    border-radius: 5px;
+    padding: 15px;
+    width: 320px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
