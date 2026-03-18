@@ -1,4 +1,6 @@
-let capsules = [];
+let capsules = JSON.parse(localStorage.getItem("capsules")) || [];
+
+displayCapsules();
 
 function addMessage() {
     let message = document.getElementById("message").value;
@@ -16,6 +18,7 @@ function addMessage() {
     };
 
     capsules.push(capsule);
+    saveData();
     displayCapsules();
 }
 
@@ -33,6 +36,7 @@ function displayCapsules() {
         div.innerHTML = `
             <p>${locked ? "🔒 Locked" : c.message}</p>
             <p>Open on: ${c.date}</p>
+            <button onclick="editCapsule(${c.id})">Edit</button>
             <button onclick="deleteCapsule(${c.id})">Delete</button>
         `;
 
@@ -42,5 +46,10 @@ function displayCapsules() {
 
 function deleteCapsule(id) {
     capsules = capsules.filter(c => c.id !== id);
+    saveData();
     displayCapsules();
+}
+
+function saveData() {
+    localStorage.setItem("capsules", JSON.stringify(capsules));
 }
