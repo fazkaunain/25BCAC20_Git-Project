@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Edit Capsule</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <h1>✏️ Edit Capsule</h1>
+
+    <div class="input-section">
+        <form method="POST">
+            <textarea name="message">{{ capsule.message }}</textarea><br><br>
+            <input type="date" name="date" value="{{ capsule.date }}"><br><br>
+            <button type="submit">Update</button>
+        </form>
+    </div>
+
+</body>
+</html>

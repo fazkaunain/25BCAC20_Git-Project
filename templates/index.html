@@ -22,13 +22,21 @@
     <!-- DISPLAY (Read) -->
     {% for c in capsules %}
     <div class="capsule">
-        <p>{{ c.message }}</p>
+        {% if c.date > current_date %}
+    <p>🔒 Locked</p>
+{% else %}
+    <p>🔓 {{ c.message }}</p>
+{% endif %}
         <p>Open on: {{ c.date }}</p>
 
         <!-- DELETE -->
-        <a href="/delete/{{ c.id }}">
-            <button>Delete</button>
-        </a>
+        <a href="/edit/{{ c.id }}">
+    <button>Edit</button>
+</a>
+
+<a href="/delete/{{ c.id }}">
+    <button>Delete</button>
+</a>
     </div>
     {% endfor %}
 
