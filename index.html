@@ -1,1 +1,22 @@
-html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Time Capsule</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>⏳ Time Capsule</h1>
+
+    <div class="input-section">
+        <textarea id="message" placeholder="Write your message..."></textarea><br><br>
+        <input type="date" id="date"><br><br>
+        <button onclick="addMessage()">Save</button>
+    </div>
+
+    <h2>Your Capsules</h2>
+    <div id="capsules"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
