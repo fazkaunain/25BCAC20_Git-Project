@@ -2,13 +2,18 @@
 <html lang="en">
 <head>
     <title>Time Capsule</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
     <h1>⏳ Time Capsule</h1>
 
-    <!-- FORM (Create) -->
+    <!-- FORM -->
     <div class="input-section">
         <form action="/add" method="POST">
             <textarea name="message" placeholder="Write your message..." required></textarea><br><br>
@@ -17,26 +22,28 @@
         </form>
     </div>
 
-    <h2>Your Capsules</h2>
+    <h2 style="color:white;">Your Capsules</h2>
 
-    <!-- DISPLAY (Read) -->
+    <!-- DISPLAY CAPSULES -->
     {% for c in capsules %}
     <div class="capsule">
+
         {% if c.date > current_date %}
-    <p>🔒 Locked</p>
-{% else %}
-    <p>🔓 {{ c.message }}</p>
-{% endif %}
+            <p>🔒 Locked</p>
+        {% else %}
+            <p>🔓 {{ c.message }}</p>
+        {% endif %}
+
         <p>Open on: {{ c.date }}</p>
 
-        <!-- DELETE -->
         <a href="/edit/{{ c.id }}">
-    <button>Edit</button>
-</a>
+            <button>Edit</button>
+        </a>
 
-<a href="/delete/{{ c.id }}">
-    <button>Delete</button>
-</a>
+        <a href="/delete/{{ c.id }}">
+            <button>Delete</button>
+        </a>
+
     </div>
     {% endfor %}
 
