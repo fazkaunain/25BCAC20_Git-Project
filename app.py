@@ -65,6 +65,14 @@ def edit(id):
     conn.close()
     return render_template('edit.html', capsule=capsule)
 
+@app.route('/view-data')
+def view_data():
+    conn = get_db_connection()
+    capsules = conn.execute('SELECT * FROM capsules').fetchall()
+    conn.close()
+
+    return render_template('view.html', capsules=capsules)
+
 # Run app
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=10000)
