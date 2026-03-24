@@ -1,51 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <title>Time Capsule</title>
-
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-
-    <!-- CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
-    <h1>⏳ Time Capsule</h1>
+<h1>⏳ Time Capsule</h1>
 
-    <!-- FORM -->
-    <div class="input-section">
-        <form action="/add" method="POST">
-            <textarea name="message" placeholder="Write your message..." required></textarea><br><br>
-            <input type="date" name="date" required><br><br>
-            <button type="submit">Save</button>
-        </form>
-    </div>
+<!-- Success Message -->
+{% if request.args.get('success') %}
+    <p class="success-msg">✅ Capsule saved successfully!</p>
+{% endif %}
 
-    <h2 style="color:white;">Your Capsules</h2>
+<!-- Form -->
+<form method="POST" action="/add">
 
-    <!-- DISPLAY CAPSULES -->
+    <textarea name="message" placeholder="Enter your message" required></textarea>
+
+    <input type="date" name="date" required>
+
+    <button type="submit">Save Capsule</button>
+
+</form>
+
+<hr>
+
+<!-- Capsules -->
+<div class="container">
     {% for c in capsules %}
-    <div class="capsule">
+    <div class="card">
+
+        <p><strong>Date:</strong> {{ c.date }}</p>
 
         {% if c.date > current_date %}
-            <p>🔒 Locked</p>
+            <p>🔒 Locked (Opens in <span class="countdown" data-date="{{ c.date }}"></span> days)</p>
         {% else %}
-            <p>🔓 {{ c.message }}</p>
+            <p>{{ c.message }}</p>
         {% endif %}
 
-        <p>Open on: {{ c.date }}</p>
-
-        <a href="/edit/{{ c.id }}">
-            <button>Edit</button>
-        </a>
-
-        <a href="/delete/{{ c.id }}">
-            <button>Delete</button>
-        </a>
+        <a href="/edit/{{ c.id }}">Edit</a> |
+        <a href="/delete/{{ c.id }}">Delete</a>
 
     </div>
     {% endfor %}
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
 
 </body>
 </html>

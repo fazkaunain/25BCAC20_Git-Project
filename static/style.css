@@ -1,76 +1,143 @@
 body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #1e3c72, #2a5298, #6dd5fa);
-    margin: 0;
-    padding: 0;
+    font-family: Arial;
     text-align: center;
-    color: #333;
+    color: white;
+    margin: 0;
+    overflow-x: hidden;
+
+    /* Base background */
+    background: radial-gradient(circle at 20% 30%, #2a2a72, transparent 40%),
+                radial-gradient(circle at 80% 70%, #009ffd, transparent 40%),
+                linear-gradient(135deg, #1e3c72, #2a5298);
+
+    position: relative;
 }
 
-/* TITLE */
+/* Moving pattern */
+body::before {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+
+    background: radial-gradient(circle, rgba(255,255,255,0.08) 10%, transparent 11%),
+                radial-gradient(circle, rgba(255,255,255,0.05) 10%, transparent 11%);
+
+    background-size: 60px 60px;
+    animation: moveBg 20s linear infinite;
+
+    z-index: 0;
+}
+
+/* Rotating time circle */
+body::after {
+    content: "";
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border: 2px dashed rgba(255,255,255,0.2);
+    border-radius: 50%;
+    top: 20%;
+    left: 10%;
+
+    animation: rotate 20s linear infinite;
+}
+
+/* Animations */
+@keyframes moveBg {
+    0% { transform: translate(0,0); }
+    100% { transform: translate(100px, 100px); }
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Keep content above background */
+body * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Title */
 h1 {
     color: white;
-    font-size: 2.5rem;
-    margin-top: 20px;
-    font-weight: 700;
-    letter-spacing: 1px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-top: 30px;
+    font-size: 36px;
 }
 
-/* SUBHEADING */
-h2 {
-    margin-top: 20px;
+/* Success message */
+.success-msg {
+    color: #00ffcc;
+    font-weight: bold;
 }
 
-/* INPUT BOX */
-.input-section {
-    background: white;
-    padding: 20px;
-    margin: 20px auto;
-    width: 320px;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+/* Form layout */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* TEXTAREA */
+/* Textarea */
 textarea {
-    width: 90%;
-    height: 80px;
+    width: 350px;
+    height: 120px;
     padding: 10px;
     border-radius: 8px;
-    border: 1px solid #ccc;
-}
-
-/* DATE INPUT */
-input {
-    margin-top: 10px;
-    padding: 8px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-/* BUTTON */
-button {
-    margin-top: 10px;
-    background: #2a5298;
-    color: white;
-    padding: 10px 15px;
     border: none;
+    resize: none;
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+/* Date input */
+input[type="date"] {
+    padding: 8px;
+    border-radius: 6px;
+    border: none;
+    margin: 10px 0;
+}
+
+/* Button */
+button {
+    padding: 10px 18px;
+    background: #00c6ff;
+    color: white;
+    border: none;
+    border-radius: 6px;
     cursor: pointer;
-    border-radius: 8px;
-    transition: 0.3s;
+    margin: 10px 0;
 }
 
 button:hover {
-    background: #1e3c72;
-    transform: scale(1.05);
+    background: #0072ff;
 }
 
-/* CAPSULE CARDS */
-.capsule {
-    background: white;
+/* Cards */
+.container {
+    margin-top: 20px;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    color: white;
+
     margin: 15px auto;
     padding: 15px;
-    width: 320px;
+    width: 300px;
     border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }

@@ -31,7 +31,7 @@ def add():
     conn.commit()
     conn.close()
 
-    return redirect('/')
+    return redirect('/?success=1')
 
 # Delete
 @app.route('/delete/<int:id>')
