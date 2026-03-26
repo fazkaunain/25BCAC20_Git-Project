@@ -6,47 +6,91 @@
 </head>
 <body>
 
-<h1>⏳ Time Capsule</h1>
+<!-- TOAST -->
+<div id="toast" class="toast"></div>
 
-<!-- Success Message -->
-{% if request.args.get('success') %}
-    <p class="success-msg">✅ Capsule saved successfully!</p>
+<!-- NAVBAR -->
+<div class="navbar">
+    <h2>⏳ Time Capsule</h2>
+    <div class="nav-right">
+        <span>👤 {{ username }}</span>
+        <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+</div>
+
+<!-- READY NOTIFICATION -->
+{% set ready_found = false %}
+{% for c in capsules %}
+    {% if c.date <= current_date %}
+        {% set ready_found = true %}
+    {% endif %}
+{% endfor %}
+{% if ready_found %}
+    <div class="notify">🎉 A capsule is ready to open!</div>
 {% endif %}
 
-<!-- Form -->
-<form method="POST" action="/add">
+<!-- FORM -->
+<div class="form-card">
+    <form method="POST" action="/add">
+        <textarea name="message" placeholder="Write your message..." required></textarea>
+        <input type="date" name="date" required>
+        <button type="submit">Save Capsule</button>
+    </form>
+</div>
 
-    <textarea name="message" placeholder="Enter your message" required></textarea>
-
-    <input type="date" name="date" required>
-
-    <button type="submit">Save Capsule</button>
-
-</form>
-
-<hr>
-
-<!-- Capsules -->
+<!-- CAPSULES -->
 <div class="container">
-    {% for c in capsules %}
+{% for c in capsules %}
     <div class="card">
 
         <p><strong>Date:</strong> {{ c.date }}</p>
 
         {% if c.date > current_date %}
-            <p>🔒 Locked (Opens in <span class="countdown" data-date="{{ c.date }}"></span> days)</p>
+            <p class="locked">🔒 Locked</p>
         {% else %}
+            <p class="ready">🎉 Ready!</p>
             <p>{{ c.message }}</p>
         {% endif %}
 
-        <a href="/edit/{{ c.id }}">Edit</a> |
-        <a href="/delete/{{ c.id }}">Delete</a>
+        <div class="actions">
+            <a href="/edit/{{ c.id }}">✏️ Edit</a>
+            <a href="#" onclick="confirmDelete({{ c.id }})">🗑 Delete</a>
+        </div>
 
     </div>
-    {% endfor %}
+{% endfor %}
 </div>
 
-<script src="{{ url_for('static', filename='script.js') }}"></script>
+<!-- SCRIPTS -->
+<script>
+function confirmDelete(id){
+    if(confirm("⚠️ Delete this capsule?")){
+        window.location.href = "/delete/" + id;
+    }
+}
+
+// TOAST FUNCTION
+function showToast(message, type="success") {
+    const toast = document.getElementById("toast");
+    toast.innerText = message;
+    toast.className = "toast show " + type;
+
+    setTimeout(() => {
+        toast.className = "toast";
+    }, 3000);
+}
+
+// CHECK URL PARAMS
+const params = new URLSearchParams(window.location.search);
+
+if (params.get("success")) {
+    showToast("🎉 Capsule saved successfully!", "success");
+}
+
+if (params.get("deleted")) {
+    showToast("🗑 Capsule deleted!", "delete");
+}
+</script>
 
 </body>
 </html>
